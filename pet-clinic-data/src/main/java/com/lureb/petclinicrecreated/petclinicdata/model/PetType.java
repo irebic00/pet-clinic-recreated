@@ -1,4 +1,4 @@
-package com.lureb.petclinicrecreated.model;
+package com.lureb.petclinicrecreated.petclinicdata.model;
 
 public class PetType {
     private String name;

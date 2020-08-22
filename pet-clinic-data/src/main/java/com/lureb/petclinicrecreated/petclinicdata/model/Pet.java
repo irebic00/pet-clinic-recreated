@@ -1,4 +1,4 @@
-package com.lureb.petclinicrecreated.model;
+package com.lureb.petclinicrecreated.petclinicdata.model;
 
 import java.time.LocalDate;
 

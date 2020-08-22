@@ -1,4 +1,4 @@
-package com.lureb.petclinicrecreated;
+package com.lureb.petclinicrecreated.petclinicweb;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
