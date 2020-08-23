@@ -1,11 +1,13 @@
 package com.lureb.petclinicrecreated.petclinicdata.services.map;
 
 import com.lureb.petclinicrecreated.petclinicdata.model.Pet;
-import com.lureb.petclinicrecreated.petclinicdata.services.CrudService;
+import com.lureb.petclinicrecreated.petclinicdata.services.PetService;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
-public class PetServiceMap extends AbstractMapService<Pet, Long> implements CrudService<Pet, Long> {
+@Service
+public class PetServiceMap extends AbstractMapService<Pet, Long> implements PetService {
     @Override
     public Pet findById(Long id) {
         return super.findById(id);

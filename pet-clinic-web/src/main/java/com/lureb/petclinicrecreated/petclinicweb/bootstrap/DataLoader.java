@@ -4,21 +4,20 @@ import com.lureb.petclinicrecreated.petclinicdata.model.Owner;
 import com.lureb.petclinicrecreated.petclinicdata.model.Vetenarian;
 import com.lureb.petclinicrecreated.petclinicdata.services.OwnerService;
 import com.lureb.petclinicrecreated.petclinicdata.services.VetService;
-import com.lureb.petclinicrecreated.petclinicdata.services.map.OwnerServiceMap;
-import com.lureb.petclinicrecreated.petclinicdata.services.map.VetServiceMap;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DataLoader implements CommandLineRunner {
 
-    private OwnerService ownerService;
+    private final OwnerService ownerService;
+    private final VetService vetService;
 
-    private VetService vetService;
-
-    public DataLoader() {
-        this.ownerService = new OwnerServiceMap();
-        this.vetService = new VetServiceMap();
+    @Autowired
+    public DataLoader(OwnerService ownerService, VetService vetService) {
+        this.ownerService = ownerService;
+        this.vetService = vetService;
     }
 
     @Override

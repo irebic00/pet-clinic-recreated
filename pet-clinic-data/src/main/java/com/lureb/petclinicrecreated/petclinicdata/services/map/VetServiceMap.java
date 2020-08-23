@@ -1,11 +1,13 @@
 package com.lureb.petclinicrecreated.petclinicdata.services.map;
 
 import com.lureb.petclinicrecreated.petclinicdata.model.Vetenarian;
-import com.lureb.petclinicrecreated.petclinicdata.services.CrudService;
+import com.lureb.petclinicrecreated.petclinicdata.services.VetService;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
-public class VetServiceMap extends AbstractMapService<Vetenarian, Long> implements CrudService<Vetenarian, Long> {
+@Service
+public class VetServiceMap extends AbstractMapService<Vetenarian, Long> implements VetService {
     @Override
     public Vetenarian findById(Long id) {
         return super.findById(id);
