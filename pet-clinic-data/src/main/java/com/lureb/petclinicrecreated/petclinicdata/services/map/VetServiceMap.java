@@ -30,6 +30,6 @@ public class VetServiceMap extends AbstractMapService<Vetenarian, Long> implemen
 
     @Override
     public Vetenarian save(Vetenarian vetenarian) {
-        return super.save(vetenarian.getId(), vetenarian);
+        return super.save(vetenarian);
     }
 }
