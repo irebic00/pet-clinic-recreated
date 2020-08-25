@@ -1,20 +1,20 @@
 package com.lureb.petclinicrecreated.petclinicdata.services.map;
 
-import com.lureb.petclinicrecreated.petclinicdata.model.Vetenarian;
+import com.lureb.petclinicrecreated.petclinicdata.model.Vet;
 import com.lureb.petclinicrecreated.petclinicdata.services.VetService;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
-public class VetServiceMap extends AbstractMapService<Vetenarian, Long> implements VetService {
+public class VetServiceMap extends AbstractMapService<Vet, Long> implements VetService {
     @Override
-    public Vetenarian findById(Long id) {
+    public Vet findById(Long id) {
         return super.findById(id);
     }
 
     @Override
-    public Set<Vetenarian> findAll() {
+    public Set<Vet> findAll() {
         return super.findAll();
     }
 
@@ -24,12 +24,12 @@ public class VetServiceMap extends AbstractMapService<Vetenarian, Long> implemen
     }
 
     @Override
-    public void delete(Vetenarian vetenarian) {
-        super.delete(vetenarian);
+    public void delete(Vet vet) {
+        super.delete(vet);
     }
 
     @Override
-    public Vetenarian save(Vetenarian vetenarian) {
-        return super.save(vetenarian);
+    public Vet save(Vet vet) {
+        return super.save(vet);
     }
 }

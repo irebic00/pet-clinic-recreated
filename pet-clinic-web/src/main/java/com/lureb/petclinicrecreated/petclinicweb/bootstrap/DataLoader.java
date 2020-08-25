@@ -1,7 +1,7 @@
 package com.lureb.petclinicrecreated.petclinicweb.bootstrap;
 
 import com.lureb.petclinicrecreated.petclinicdata.model.Owner;
-import com.lureb.petclinicrecreated.petclinicdata.model.Vetenarian;
+import com.lureb.petclinicrecreated.petclinicdata.model.Vet;
 import com.lureb.petclinicrecreated.petclinicdata.services.OwnerService;
 import com.lureb.petclinicrecreated.petclinicdata.services.VetService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,12 +32,12 @@ public class DataLoader implements CommandLineRunner {
         owner2.setLastName("Sukina");
         ownerService.save(owner2);
 
-        Vetenarian vet1 = new Vetenarian();
+        Vet vet1 = new Vet();
         vet1.setFirstName("Adam");
         vet1.setLastName("Sandler");
         vetService.save(vet1);
 
-        Vetenarian vet2 = new Vetenarian();
+        Vet vet2 = new Vet();
         vet2.setFirstName("Jim");
         vet2.setLastName("Carrey");
         vetService.save(vet2);
