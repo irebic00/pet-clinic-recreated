@@ -1,15 +1,13 @@
 package com.lureb.petclinicrecreated.petclinicdata.services.map;
 
 import com.lureb.petclinicrecreated.petclinicdata.model.Speciality;
-import com.lureb.petclinicrecreated.petclinicdata.model.Vet;
-import com.lureb.petclinicrecreated.petclinicdata.services.SpecialitiesService;
-import com.lureb.petclinicrecreated.petclinicdata.services.VetService;
+import com.lureb.petclinicrecreated.petclinicdata.services.SpecialityService;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
-public class SpecialityServiceMap extends AbstractMapService<Speciality, Long> implements SpecialitiesService {
+public class SpecialityServiceMap extends AbstractMapService<Speciality, Long> implements SpecialityService {
     @Override
     public Speciality findById(Long id) {
         return super.findById(id);
