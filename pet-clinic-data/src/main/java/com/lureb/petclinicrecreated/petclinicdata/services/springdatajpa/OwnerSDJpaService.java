@@ -2,8 +2,6 @@ package com.lureb.petclinicrecreated.petclinicdata.services.springdatajpa;
 
 import com.lureb.petclinicrecreated.petclinicdata.model.Owner;
 import com.lureb.petclinicrecreated.petclinicdata.repositories.OwnerRepository;
-import com.lureb.petclinicrecreated.petclinicdata.repositories.PetRepository;
-import com.lureb.petclinicrecreated.petclinicdata.repositories.PetTypeRepository;
 import com.lureb.petclinicrecreated.petclinicdata.services.OwnerService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -16,13 +14,9 @@ import java.util.Set;
 public class OwnerSDJpaService implements OwnerService {
 
     private final OwnerRepository ownerRepository;
-    private final PetRepository petRepository;
-    private final PetTypeRepository petTypeRepository;
 
-    public OwnerSDJpaService(OwnerRepository ownerRepository, PetRepository petRepository, PetTypeRepository petTypeRepository) {
+    public OwnerSDJpaService(OwnerRepository ownerRepository) {
         this.ownerRepository = ownerRepository;
-        this.petRepository = petRepository;
-        this.petTypeRepository = petTypeRepository;
     }
 
     @Override
