@@ -1,10 +1,7 @@
 package com.lureb.petclinicrecreated.petclinicweb.bootstrap;
 
 import com.lureb.petclinicrecreated.petclinicdata.model.*;
-import com.lureb.petclinicrecreated.petclinicdata.services.OwnerService;
-import com.lureb.petclinicrecreated.petclinicdata.services.PetTypeService;
-import com.lureb.petclinicrecreated.petclinicdata.services.SpecialityService;
-import com.lureb.petclinicrecreated.petclinicdata.services.VetService;
+import com.lureb.petclinicrecreated.petclinicdata.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -18,13 +15,15 @@ public class DataLoader implements CommandLineRunner {
     private final VetService vetService;
     private final PetTypeService petTypeService;
     private final SpecialityService specialityService;
+    private final VisitService visitService;
 
     @Autowired
-    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialityService specialityService) {
+    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialityService specialityService, VisitService visitService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
         this.specialityService = specialityService;
+        this.visitService = visitService;
     }
 
     @Override
@@ -85,6 +84,12 @@ public class DataLoader implements CommandLineRunner {
         mandasCat.setOwner(owner2);
         owner2.getPets().add(mandasCat);
         ownerService.save(owner2);
+
+        Visit mandasCatVisit = new Visit();
+        mandasCatVisit.setDate(LocalDate.now());
+        mandasCatVisit.setDescription("Cat flu was cured");
+        mandasCatVisit.setPet(mandasCat);
+        visitService.save(mandasCatVisit);
 
         Vet vet1 = new Vet();
         vet1.setFirstName("Adam");
