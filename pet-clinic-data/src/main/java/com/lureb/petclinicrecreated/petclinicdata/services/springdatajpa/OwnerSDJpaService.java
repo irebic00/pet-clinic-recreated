@@ -28,10 +28,7 @@ public class OwnerSDJpaService implements OwnerService {
 
     @Override
     public List<Owner> findAllByLastNameLike(String pattern) {
-        return findAll()
-                .stream()
-                .filter(owner -> owner.getLastName().toLowerCase().contains(pattern.toLowerCase()))
-                .collect(Collectors.toList());
+        return ownerRepository.findAllByLastNameLike(pattern);
     }
 
     @Override

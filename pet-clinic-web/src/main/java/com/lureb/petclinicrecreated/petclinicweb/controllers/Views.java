@@ -5,4 +5,5 @@ public class Views {
     public static final String REDIRECT_OWNERS = "redirect:/owners/";
     public static final String OWNERS_FIND_OWNERS = "owners/findOwners";
     public static final String OWNERS_OWNER_DETAILS = "owners/ownerDetails";
+    public static final String OWNERS_OWNERS_LIST = "owners/ownersList";
 }

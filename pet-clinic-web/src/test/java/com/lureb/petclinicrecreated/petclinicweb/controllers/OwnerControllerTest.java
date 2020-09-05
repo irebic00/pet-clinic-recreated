@@ -17,10 +17,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @ExtendWith(MockitoExtension.class)
 class OwnerControllerTest {
@@ -46,7 +43,6 @@ class OwnerControllerTest {
                 .build();
     }
 
-    @Disabled
     @Test
     void findOwners() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/owners/find"))
@@ -57,12 +53,10 @@ class OwnerControllerTest {
         Mockito.verifyNoInteractions(ownerService);
     }
 
-    @Disabled
     @Test
     void processFindFormReturnMany() throws Exception {
         Mockito.when(ownerService.findAllByLastNameLike(Mockito.anyString()))
-                .thenReturn(Arrays.asList(Owner.builder().id(1L).build(),
-                        Owner.builder().id(2L).build()));
+                .thenReturn(new ArrayList<>(owners));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/owners"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -70,7 +64,6 @@ class OwnerControllerTest {
                 .andExpect(MockMvcResultMatchers.model().attribute("selections", Matchers.hasSize(2)));
     }
 
-    @Disabled
     @Test
     void processFindFormReturnOne() throws Exception {
         Mockito.when(ownerService
@@ -155,26 +148,4 @@ class OwnerControllerTest {
 
         Mockito.verify(ownerService).save(ArgumentMatchers.any());
     }
-
-    @Test
-    void getOwners() throws Exception {
-        Mockito.when(ownerService.findAll()).thenReturn(owners);
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/owners"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("owners/index"))
-                .andExpect(MockMvcResultMatchers.model().attribute("owners", owners))
-                .andExpect(MockMvcResultMatchers.model().attribute("owners", Matchers.hasSize(2)));
-    }
-
-    @Test
-    void oups() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/owners/find"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("notImplemented"));
-
-        Mockito.verifyNoInteractions(ownerService);
-    }
-
-
 }

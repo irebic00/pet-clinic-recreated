@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -29,11 +30,19 @@ public class OwnerController {
         this.visitService = visitService;
     }
 
-//    @InitBinder
-//    public void setAllowedFields(WebDataBinder dataBinder) {
-//        dataBinder.setDisallowedFields("id");
-//    }
-//
+    /**
+     * Set allow fields for posting forms. {@link WebDataBinder} has been in Spring since 1.2.
+     * It enables RESTful services to control what can be posted to web server.
+     * In our example we disallow posting id from POST forms because it might pose security issu.
+     * For example, malicious action could alter ids in database if allowed to post such requests from frontend.
+     *
+     * @param dataBinder data binder
+     */
+    @InitBinder
+    public void setAllowedFields(WebDataBinder dataBinder) {
+        dataBinder.setDisallowedFields("id");
+    }
+
 //    @GetMapping("/owners/new")
 //    public String initCreationForm(Map<String, Object> model) {
 //        Owner owner = new Owner();
@@ -56,33 +65,6 @@ public class OwnerController {
 //    public String initFindForm(Map<String, Object> model) {
 //        model.put("owner", new Owner());
 //        return Views.OWNERS_FIND_OWNERS;
-//    }
-//
-//    @GetMapping("/owners")
-//    public String processFindForm(Owner owner, BindingResult result, Map<String, Object> model) {
-//
-//        // allow parameterless GET request for /owners to return all records
-//        if (owner.getLastName() == null) {
-//            owner.setLastName(""); // empty string signifies broadest possible search
-//        }
-//
-//        // find owners by last name
-//        Collection<Owner> results = this.owners.findByLastName(owner.getLastName());
-//        if (results.isEmpty()) {
-//            // no owners found
-//            result.rejectValue("lastName", "notFound", "not found");
-//            return Views.OWNERS_FIND_OWNERS;
-//        }
-//        else if (results.size() == 1) {
-//            // 1 owner found
-//            owner = results.iterator().next();
-//            return Views.REDIRECT_OWNERS + owner.getId();
-//        }
-//        else {
-//            // multiple owners found
-//            model.put("selections", results);
-//            return "owners/ownersList";
-//        }
 //    }
 //
 //    @GetMapping("/owners/{ownerId}/edit")
@@ -118,14 +100,36 @@ public class OwnerController {
         return mav;
     }
 
-    @GetMapping({"/owners", "/owners/index", "/owners/index.html"})
-    public String getOwners(Model model) {
-        model.addAttribute("owners", ownerService.findAll());
-        return "owners/index";
+    @GetMapping("/owners/find")
+    public String findOwners(Model model) {
+        model.addAttribute("owner", Owner.builder().build());
+        return Views.OWNERS_FIND_OWNERS;
     }
 
-    @GetMapping("/owners/find")
-    public String oups() {
-        return "notImplemented";
+    @GetMapping("/owners")
+    public String processFindForm(Owner owner, BindingResult result, Model model) {
+
+        // allow parameterless GET request for /owners to return all records
+        if (owner.getLastName() == null) {
+            owner.setLastName(""); // empty string signifies broadest possible search
+        }
+
+        // find owners by last name
+        List<Owner> results = ownerService.findAllByLastNameLike(owner.getLastName());
+        if (results.isEmpty()) {
+            // no owners found
+            result.rejectValue("lastName", "notFound", "not found");
+            return Views.OWNERS_FIND_OWNERS;
+        }
+        else if (results.size() == 1) {
+            // 1 owner found
+            owner = results.get(0);
+            return Views.REDIRECT_OWNERS + owner.getId();
+        }
+        else {
+            // multiple owners found
+            model.addAttribute("selections", results);
+            return Views.OWNERS_OWNERS_LIST;
+        }
     }
 }
