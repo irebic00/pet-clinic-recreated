@@ -1,12 +1,13 @@
 package com.lureb.petclinicrecreated.petclinicdata.model;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Setter
 @Getter
@@ -43,14 +44,11 @@ public class Owner extends Person {
     }
 
     public Pet getPet(String name, boolean ignoreNew) {
-        List<Pet> petList = getPets()
+        return getPets()
                 .stream()
                 .filter(pet -> !ignoreNew || !pet.isNew())
                 .filter(pet -> pet.getName().toLowerCase().equals(name.toLowerCase()))
-                .collect(Collectors.toList());
-        if (petList.isEmpty()){
-            return null;
-        }
-        return petList.get(0);
+                .findFirst()
+                .orElse(null);
     }
 }
