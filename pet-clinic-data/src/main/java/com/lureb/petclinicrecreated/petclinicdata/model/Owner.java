@@ -4,7 +4,9 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Setter
 @Getter
@@ -19,7 +21,9 @@ public class Owner extends Person {
         this.address = address;
         this.city = city;
         this.telephone = telephone;
-        this.pets = pets;
+        if (pets != null) {
+            this.pets = pets;
+        }
     }
 
     @Column(name = "address")
@@ -33,4 +37,20 @@ public class Owner extends Person {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private Set<Pet> pets = new HashSet<>();
+
+    public Pet getPet(String name) {
+        return getPet(name, false);
+    }
+
+    public Pet getPet(String name, boolean ignoreNew) {
+        List<Pet> petList = getPets()
+                .stream()
+                .filter(pet -> !ignoreNew || !pet.isNew())
+                .filter(pet -> pet.getName().toLowerCase().equals(name.toLowerCase()))
+                .collect(Collectors.toList());
+        if (petList.isEmpty()){
+            return null;
+        }
+        return petList.get(0);
+    }
 }

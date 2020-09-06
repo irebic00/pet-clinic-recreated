@@ -57,7 +57,6 @@ class PetControllerTest {
                 .build();
     }
 
-    @Disabled
     @Test
     void initCreationForm() throws Exception {
         Mockito.when(ownerService.findById(Mockito.anyLong())).thenReturn(owner);
@@ -70,7 +69,6 @@ class PetControllerTest {
                 .andExpect(MockMvcResultMatchers.view().name("pets/createOrUpdatePetForm"));
     }
 
-    @Disabled
     @Test
     void processCreationForm() throws Exception {
         Mockito.when(ownerService.findById(Mockito.anyLong())).thenReturn(owner);
@@ -83,7 +81,6 @@ class PetControllerTest {
         Mockito.verify(petService).save(Mockito.any());
     }
 
-    @Disabled
     @Test
     void initUpdateForm() throws Exception {
         Mockito.when(ownerService.findById(Mockito.anyLong())).thenReturn(owner);
@@ -97,7 +94,6 @@ class PetControllerTest {
                 .andExpect(MockMvcResultMatchers.view().name("pets/createOrUpdatePetForm"));
     }
 
-    @Disabled
     @Test
     void processUpdateForm() throws Exception {
         Mockito.when(ownerService.findById(Mockito.anyLong())).thenReturn(owner);
