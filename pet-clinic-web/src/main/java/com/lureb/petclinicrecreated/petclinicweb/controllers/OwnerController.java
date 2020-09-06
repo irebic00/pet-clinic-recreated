@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -42,50 +43,6 @@ public class OwnerController {
     public void setAllowedFields(WebDataBinder dataBinder) {
         dataBinder.setDisallowedFields("id");
     }
-
-//    @GetMapping("/owners/new")
-//    public String initCreationForm(Map<String, Object> model) {
-//        Owner owner = new Owner();
-//        model.put("owner", owner);
-//        return Views.OWNERS_CREATE_OR_UPDATE_OWNER_FORM;
-//    }
-//
-//    @PostMapping("/owners/new")
-//    public String processCreationForm(@Valid Owner owner, BindingResult result) {
-//        if (result.hasErrors()) {
-//            return Views.OWNERS_CREATE_OR_UPDATE_OWNER_FORM;
-//        }
-//        else {
-//            ownerService.save(owner);
-//            return Views.REDIRECT_OWNERS + owner.getId();
-//        }
-//    }
-//
-//    @GetMapping("/owners/find")
-//    public String initFindForm(Map<String, Object> model) {
-//        model.put("owner", new Owner());
-//        return Views.OWNERS_FIND_OWNERS;
-//    }
-//
-//    @GetMapping("/owners/{ownerId}/edit")
-//    public String initUpdateOwnerForm(@PathVariable("ownerId") int ownerId, Model model) {
-//        Owner owner = this.owners.findById(ownerId);
-//        model.addAttribute(owner);
-//        return Views.OWNERS_CREATE_OR_UPDATE_OWNER_FORM;
-//    }
-//
-//    @PostMapping("/owners/{ownerId}/edit")
-//    public String processUpdateOwnerForm(@Valid Owner owner, BindingResult result,
-//                                         @PathVariable("ownerId") int ownerId) {
-//        if (result.hasErrors()) {
-//            return Views.OWNERS_CREATE_OR_UPDATE_OWNER_FORM;
-//        }
-//        else {
-//            owner.setId(ownerId);
-//            this.owners.save(owner);
-//            return "redirect:/owners/{ownerId}";
-//        }
-//    }
 
     /**
      * Custom handler for displaying an owner.
@@ -130,6 +87,42 @@ public class OwnerController {
             // multiple owners found
             model.addAttribute("selections", results);
             return Views.OWNERS_OWNERS_LIST;
+        }
+    }
+
+    @GetMapping("/owners/new")
+    public String initCreationForm(Model model) {
+        model.addAttribute("owner", Owner.builder().build());
+        return Views.OWNERS_CREATE_OR_UPDATE_OWNER_FORM;
+    }
+
+    @PostMapping("/owners/new")
+    public String processCreationForm(@Valid Owner owner, BindingResult result) {
+        if (result.hasErrors()) {
+            return Views.OWNERS_CREATE_OR_UPDATE_OWNER_FORM;
+        }
+        else {
+            Owner ownerSaved = ownerService.save(owner);
+            return Views.REDIRECT_OWNERS + ownerSaved.getId();
+        }
+    }
+
+    @GetMapping("/owners/{ownerId}/edit")
+    public String initUpdateOwnerForm(@PathVariable("ownerId") long ownerId, Model model) {
+        model.addAttribute(ownerService.findById(ownerId));
+        return Views.OWNERS_CREATE_OR_UPDATE_OWNER_FORM;
+    }
+
+    @PostMapping("/owners/{ownerId}/edit")
+    public String processUpdateOwnerForm(@Valid Owner owner, BindingResult result,
+                                         @PathVariable("ownerId") long ownerId) {
+        if (result.hasErrors()) {
+            return Views.OWNERS_CREATE_OR_UPDATE_OWNER_FORM;
+        }
+        else {
+            owner.setId(ownerId);
+            Owner savedOwner = ownerService.save(owner);
+            return "redirect:/owners/" + savedOwner.getId();
         }
     }
 }

@@ -75,7 +75,6 @@ class OwnerControllerTest {
                 .andExpect(MockMvcResultMatchers.view().name("redirect:/owners/1"));
     }
 
-    @Disabled
     @Test
     void processFindFormEmptyReturnMany() throws Exception {
         Mockito.when(ownerService.findAllByLastNameLike(Mockito.anyString()))
@@ -99,7 +98,6 @@ class OwnerControllerTest {
                 .andExpect(MockMvcResultMatchers.model().attribute("owner", Matchers.hasProperty("id", Matchers.is(1L))));
     }
 
-    @Disabled
     @Test
     void initCreationForm() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/owners/new"))
@@ -110,7 +108,6 @@ class OwnerControllerTest {
         Mockito.verifyNoInteractions(ownerService);
     }
 
-    @Disabled
     @Test
     void processCreationForm() throws Exception {
         Mockito.when(ownerService.save(ArgumentMatchers.any())).thenReturn(Owner.builder().id(1L).build());
@@ -123,7 +120,6 @@ class OwnerControllerTest {
         Mockito.verify(ownerService).save(ArgumentMatchers.any());
     }
 
-    @Disabled
     @Test
     void initUpdateOwnerForm() throws Exception {
         Mockito.when(ownerService.findById(Mockito.anyLong())).thenReturn(Owner.builder().id(1L).build());
@@ -132,11 +128,8 @@ class OwnerControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.view().name("owners/createOrUpdateOwnerForm"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("owner"));
-
-        Mockito.verifyNoInteractions(ownerService);
     }
 
-    @Disabled
     @Test
     void processUpdateOwnerForm() throws Exception {
         Mockito.when(ownerService.save(ArgumentMatchers.any())).thenReturn(Owner.builder().id(1L).build());
