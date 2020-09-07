@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Setter
@@ -39,6 +40,22 @@ public class Pet extends BaseEntity {
         this.petType = petType;
         this.owner = owner;
         this.birthday = birthday;
-        this.visits = visits;
+        if (visits != null) {
+            this.visits = visits;
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Pet pet = (Pet) o;
+        if (pet.getId() == null || pet.getPetType() == null) return false;
+        return this.getId().equals(pet.getId()) &&
+                this.getPetType().equals(pet.getPetType());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(petType, getId());
     }
 }

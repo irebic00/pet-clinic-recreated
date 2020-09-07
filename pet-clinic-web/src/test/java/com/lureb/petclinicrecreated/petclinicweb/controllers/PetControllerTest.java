@@ -7,7 +7,6 @@ import com.lureb.petclinicrecreated.petclinicdata.services.OwnerService;
 import com.lureb.petclinicrecreated.petclinicdata.services.PetService;
 import com.lureb.petclinicrecreated.petclinicdata.services.PetTypeService;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,8 +20,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class PetControllerTest {
