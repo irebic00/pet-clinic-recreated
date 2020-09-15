@@ -1,7 +1,6 @@
 package com.lureb.petclinicrecreated.petclinicweb.controllers;
 
 import com.lureb.petclinicrecreated.petclinicdata.model.Owner;
-import com.lureb.petclinicrecreated.petclinicdata.model.Pet;
 import com.lureb.petclinicrecreated.petclinicdata.services.OwnerService;
 import com.lureb.petclinicrecreated.petclinicdata.services.VisitService;
 import org.springframework.stereotype.Controller;
@@ -15,9 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class OwnerController {
